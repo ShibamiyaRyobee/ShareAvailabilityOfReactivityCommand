@@ -1,0 +1,58 @@
+﻿<Window
+    x:Class="ShareAvailabilityOfReactiveCommand.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ShareAvailabilityOfReactiveCommand"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:rp="clr-namespace:Reactive.Bindings.Interactivity;assembly=ReactiveProperty.WPF"
+    xmlns:s="clr-namespace:System;assembly=mscorlib"
+    Title="MainWindow"
+    Width="800"
+    Height="450"
+    mc:Ignorable="d">
+    <Window.DataContext>
+        <local:MainWindowViewModel />
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="9*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button
+                Grid.Row="0"
+                Grid.Column="0"
+                Command="{Binding ChangeModeCommand}">
+                <Button.CommandParameter>
+                    <s:Boolean>True</s:Boolean>
+                </Button.CommandParameter>
+                ON
+            </Button>
+            <Button
+                Grid.Row="0"
+                Grid.Column="1"
+                Command="{Binding ChangeModeCommand}">
+                <Button.CommandParameter>
+                    <s:Boolean>False</s:Boolean>
+                </Button.CommandParameter>
+                OFF
+            </Button>
+        </Grid>
+        <Canvas Grid.Row="1" Background="Aqua">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <rp:EventToReactiveCommand Command="{Binding MouseMoveCommand}" />
+                </behaviors:EventTrigger>
+                <behaviors:EventTrigger EventName="MouseDown">
+                    <rp:EventToReactiveCommand Command="{Binding MouseDownCommand}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </Canvas>
+    </Grid>
+</Window>
